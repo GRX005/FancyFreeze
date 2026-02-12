@@ -1,0 +1,46 @@
+SkyFreeze_Config:
+  ConfigVersion: 1
+  Messages:
+    Prefix: "<gold><bold>Fancy<yellow>Freeze</bold> <gray>» "
+    RELOAD: "<green>Config reloaded."
+    NO_SELF_FREEZE: "<red>You cannot freeze yourself."
+    PLAYER_HAS_PERM: "<red>You cannot freeze this player!"
+    PLAYER_ALREADY_FROZEN: "<red>The player is already frozen."
+    PLAYER_FROZEN: "<green>The player's movement has been <red><bold>disabled</bold><green>."
+    PLAYER_UNFROZEN: "<green>The player's movement has been <dark_green><bold>enabled</bold><green>."
+    FROZEN_BY: "<red>You have been frozen by <underlined><player></underlined><red>."
+    UNFROZEN_BY: "<green>You have been unfrozen by <dark_green><player><green>."
+    NO_FREEZABLE: "<red>There are no freezable players on the server."
+    ALL_PLAYERS_FROZEN: "<green>All players have been frozen."
+    ALL_PLAYERS_UNFROZEN: "<green>All players have been unfrozen."
+    STAFF_NOTICE: "<dark_green><target><green> has been frozen by <dark_green><sender><green>."
+    STAFF_NOTICE_ALL: "<gradient:#54F472:#005610>All players have been frozen by <dark_green><player><green>."
+    STAFF_NOTICE_UN: "<dark_green><target><green> has been unfrozen by <dark_green><sender><green>."
+    STAFF_NOTICE_ALL_UN: "<green>All players have been unfrozen by <dark_green><player><green>."
+    PLAYER_NOT_FROZEN: "<red>The player is not frozen."
+    NO_PLAYER_FROZEN: "<red>No player is frozen."
+    FROZEN_ACTION_BAR: "<red><bold>You are frozen!"
+    CANT_HIT_FROZEN_PLAYER: "<red>The player is frozen, you cannot hit them."
+    NO_COMMAND: "<red>You cannot use this command because you are frozen."
+    NO_CHAT: "<red>You cannot send chat messages because you are frozen."
+  Features:
+    SPAWN_PARTICLES: TRUE
+    FREEZE_EFFECT: TRUE
+    GLOWING_EFFECT: TRUE
+    ACTION_BAR_MSG: TRUE
+    BLOCK_PLAYER_MOVE: TRUE
+    BLOCK_PLAYER_INTERACT: TRUE
+    BLOCK_PLAYER_HIT: TRUE
+    BLOCK_ITEM_DROP: TRUE
+    BLOCK_ITEM_PICKUP: TRUE
+    BLOCK_INTERACTING_WITH_ENTITY: TRUE
+    BLOCK_INVENTORY_CLICK: TRUE
+    BLOCK_ITEM_SWAP: TRUE
+    BLOCK_PLAYER_DAMAGE: TRUE
+    BLOCK_GUI_OPEN: TRUE
+    BLOCK_TELEPORT: FALSE
+    BLOCK_CHAT: FALSE
+    COMMAND_ON_LEAVE: null #You can put your command in " ", <player> will refer to the player who left.
+    BLOCK_PLAYER_COMMANDS: TRUE
+    BLOCKED_COMMANDS_WHITELIST:
+    #- asd
