@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CfgMgr {//TODO CONVERT TO automatic assignments
-    public static Component prefix;
+    public static String prefix;
     public static Component RELOAD;
     public static Component NO_SELF_FREEZE;
     public static Component PLAYER_HAS_PERM;
@@ -58,7 +58,7 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments
     public static void load() {
         cfg = Main.pl.getConfig();
 //Messages, dynamic ones need to be read as String
-        prefix = getMessage("Prefix");
+        prefix = cfg.getString("SkyFreeze_Config.Messages.Prefix");
         NO_SELF_FREEZE = getMessage("NO_SELF_FREEZE");
         PLAYER_HAS_PERM = getMessage("PLAYER_HAS_PERM");
         RELOAD = getMessage("RELOAD");
@@ -75,12 +75,12 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments
         NO_COMMAND = getMessage("NO_COMMAND");
         NO_CHAT = getMessage("NO_CHAT");
 
-        FROZEN_BY = getStr("FROZEN_BY");
-        STAFF_NOTICE = getStr("STAFF_NOTICE");
-        STAFF_NOTICE_ALL = getStr("STAFF_NOTICE_ALL");
-        UNFROZEN_BY = getStr("UNFROZEN_BY");
-        STAFF_NOTICE_UN = getStr("STAFF_NOTICE_UN");
-        STAFF_NOTICE_ALL_UN = getStr("STAFF_NOTICE_ALL_UN");
+        FROZEN_BY = getStrP("FROZEN_BY");
+        STAFF_NOTICE = getStrP("STAFF_NOTICE");
+        STAFF_NOTICE_ALL = getStrP("STAFF_NOTICE_ALL");
+        UNFROZEN_BY = getStrP("UNFROZEN_BY");
+        STAFF_NOTICE_UN = getStrP("STAFF_NOTICE_UN");
+        STAFF_NOTICE_ALL_UN = getStrP("STAFF_NOTICE_ALL_UN");
 
 //Extra visuals
         SPAWN_PARTICLE = getFeature("SPAWN_PARTICLES");
@@ -113,14 +113,11 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments
     private static final MiniMessage mm = MiniMessage.miniMessage();
     
     private static Component getMessage(String path) {
-        var msg = mm.deserialize(getStr(path));
-        if (!path.contains("Prefix") && !path.contains("ACTION_BAR"))//Apply the prefixes to the chat msgs only.
-            msg=prefix.append(msg);
-        return msg;
+        return mm.deserialize(getStrP(path));
     }
     //Separate as we store the replaceable ones as Strings, so this is used to read that directly, and we store the static ones as Component from the start
-    private static String getStr(String path) {
-        return cfg.getString("SkyFreeze_Config.Messages." + path);
+    private static String getStrP(String path) {
+        return (path.contains("ACTION_BAR")? "": prefix)+cfg.getString("SkyFreeze_Config.Messages." + path);
     }
     
     private static boolean getFeature(String path) {

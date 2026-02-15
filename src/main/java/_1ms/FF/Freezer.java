@@ -64,6 +64,7 @@ public class Freezer {
             handleActionBar(cmdtarget);
         //cmdtarget.sendMessage(FROZEN_BY.replace("%player%", sender.getName()));
         cmdtarget.sendMessage(Main.mm.deserialize(FROZEN_BY, getHolder(sender)));
+        //cmdtarget.playSound(cmdtarget, Sound.FRE);
     }
 
     public static void unFreeze(CommandSender sender, Player target) {
@@ -112,7 +113,8 @@ public class Freezer {
         Bukkit.getOnlinePlayers().stream().filter(p->p.hasPermission(Perm.Notify.s)&&p!=sender).forEach(p-> {
             if (!all) {
                 //p.sendMessage((un ? STAFF_NOTICE_UN : STAFF_NOTICE).replace("%target%", cmdtarget.getName()).replace("%sender%", sender.getName()));
-                p.sendMessage(Main.mm.deserialize((un ? STAFF_NOTICE_UN : STAFF_NOTICE), Placeholder.component("target", cmdtarget.displayName()), getHolder(sender)));
+                p.sendMessage(Main.mm.deserialize((un ? STAFF_NOTICE_UN : STAFF_NOTICE),
+                        Placeholder.component("target", cmdtarget.displayName()), getHolder(sender)));
                 return;
             }
             p.sendMessage(Main.mm.deserialize((un? STAFF_NOTICE_ALL_UN : STAFF_NOTICE_ALL), getHolder(sender)));
@@ -171,7 +173,7 @@ public class Freezer {
     }
 
     private static TagResolver.Single getHolder(CommandSender sender) {
-        return Placeholder.component("player", sender instanceof Player p?p.displayName():Component.text(sender.getName()));
+        return Placeholder.component("sender", sender instanceof Player p?p.displayName():Component.text(sender.getName()));
     }
 
 }
