@@ -42,7 +42,7 @@ public final class Main extends JavaPlugin {
         Freezer.unFreeze(null,null);
         getLogger().info("FancyFreeze has been unloaded.");
     }
-    //TODO OPTIMISE
+
     private void handleParticle() {
         final double radius = 1.5;
         final int points = 16;
@@ -53,22 +53,22 @@ public final class Main extends JavaPlugin {
             xOff[i] = radius * Math.cos(angle);
             zOff[i] = radius * Math.sin(angle);
         }
+        var pBuilder = Particle.DUST.builder().data(new Particle.DustOptions(Color.WHITE, 1));
 
-        Particle.DustOptions dustOptions = new Particle.DustOptions(Color.WHITE, 1);
-        final int[] tick = {0}; // Use an integer array wrapper for the mutable index
-
-        Bukkit.getScheduler().runTaskTimer(Main.pl, t ->{
-            int i = tick[0];
-            tick[0] = (i + 1) % points;
+        final int[] particleTick = {0};
+        Bukkit.getScheduler().runTaskTimer(Main.pl, t -> {
+            if (freezed.isEmpty()) return;
+            final int i = particleTick[0];
+            particleTick[0] = (i + 1) % points;
             freezed.forEach(p->{
                 var target = Objects.requireNonNull(Bukkit.getPlayer(p));
 
                 var x = target.getX() + xOff[i];
-                var y = target.getY() + 2;
+                var y = target.getY() + 2.0;
                 var z = target.getZ() + zOff[i];
 
                 // Spawn particle
-                target.getWorld().spawnParticle(Particle.DUST, x,y,z, 1, 0, 0, 0, 1, dustOptions);
+                pBuilder.location(target.getWorld(),x,y,z).spawn();
             });
         }, 0, 1);
     }

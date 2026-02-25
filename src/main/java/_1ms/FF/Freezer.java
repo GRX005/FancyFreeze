@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -64,7 +65,7 @@ public class Freezer {
             handleActionBar(cmdtarget);
         //cmdtarget.sendMessage(FROZEN_BY.replace("%player%", sender.getName()));
         cmdtarget.sendMessage(Main.mm.deserialize(FROZEN_BY, getHolder(sender)));
-        //cmdtarget.playSound(cmdtarget, Sound.FRE);
+        cmdtarget.getWorld().playSound(cmdtarget, Sound.ENTITY_PLAYER_HURT_FREEZE, 1,1);
     }
 
     public static void unFreeze(CommandSender sender, Player target) {
@@ -121,45 +122,6 @@ public class Freezer {
         });
     }
 
-//    private static void handleParticle(Player cmdtarget) {
-//        // 1. Pre-computation (Do this once, before the task starts)
-//        final int points = 16;
-//        final double radius = 1.5;
-//        final double[] xOffsets = new double[points];
-//        final double[] zOffsets = new double[points];
-//
-//// Pre-calculate offsets to avoid Math.sin/cos every tick
-//        for (int i = 0; i < points; i++) {
-//            double angle = 2 * Math.PI * i / points;
-//            xOffsets[i] = radius * Math.cos(angle);
-//            zOffsets[i] = radius * Math.sin(angle);
-//        }
-//
-//        Particle.DustOptions dustOptions = new Particle.DustOptions(Color.WHITE, 1);
-//        final int[] step = {0}; // Use an integer array wrapper for the mutable index
-//
-//        Bukkit.getScheduler().runTaskTimer(Main.pl, t -> {
-//            // 2. Validity Check
-//            if (!freezed.contains(cmdtarget.getUniqueId())) {
-//                t.cancel();
-//                return;
-//            }
-//
-//            // 3. Fast Lookup (No trigonometry here)
-//            int i = step[0];
-//            double x = cmdtarget.getX() + xOffsets[i];
-//            double y = cmdtarget.getY() + 2;
-//            double z = cmdtarget.getZ() + zOffsets[i];
-//
-//            // Spawn particle
-//            cmdtarget.getWorld().spawnParticle(Particle.DUST, x, y, z, 1, 0, 0, 0, 1, dustOptions);
-//
-//            // 4. Update Index
-//            if (++step[0] >= points) {
-//                step[0] = 0;
-//            }
-//        }, 0, 1);
-//    }
 //TODO maybe VT?
     private static void handleActionBar(Player target) {
         Bukkit.getScheduler().runTaskTimerAsynchronously(Main.pl, t-> {
