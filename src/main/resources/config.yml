@@ -6,8 +6,8 @@ FancyFreeze_Config:
     NO_SELF_FREEZE: "<gradient:#F51010:#FF0091>⚠ You cannot freeze yourself!"
     PLAYER_HAS_PERM: "<gradient:#F51010:#FF0091>⚠ This player is immune to freezing!"
     PLAYER_ALREADY_FROZEN: "<gradient:#F51010:#FF0091>⚠ That player is already frozen."
-    PLAYER_FROZEN: "<gradient:#00FF64:#8AFF00>The player's movement has been <gradient:#F51010:#FF0091><bold>disabled</bold><gradient:#00FF64:#8AFF00>."
-    PLAYER_UNFROZEN: "<gradient:#00FF64:#8AFF00>The player's movement has been <gradient:#007725:#00CF5A><bold>enabled</bold><gradient:#00FF64:#8AFF00>."
+    PLAYER_FROZEN: "<gradient:#00FF64:#8AFF00>❄ The player's movement has been <gradient:#F51010:#FF0091><bold>disabled</bold><gradient:#00FF64:#8AFF00>"
+    PLAYER_UNFROZEN: "<gradient:#00FF64:#8AFF00>☀ The player's movement has been <gradient:#007725:#00CF5A><bold>enabled</bold><gradient:#00FF64:#8AFF00>"
     FROZEN_BY: "<gradient:#F51010:#FF0091>❄ You've been frozen by <underlined><sender></underlined>."
     UNFROZEN_BY: "<gradient:#00FF64:#8AFF00>☀ You've been unfrozen by <gradient:#007725:#00CF5A><sender></gradient><gradient:#00FF64:#8AFF00>."
     NO_FREEZABLE: "<gradient:#F51010:#FF0091>⚠ There are no freezable players online."
@@ -40,7 +40,8 @@ FancyFreeze_Config:
     BLOCK_GUI_OPEN: TRUE
     BLOCK_TELEPORT: FALSE
     BLOCK_CHAT: FALSE
-    COMMAND_ON_LEAVE: null #You can put your command in " ", <player> will refer to the player who left.
+    #Cmd to be run by the srv if a player leaves while frozen. <player> will refer to the player who left. To run multiple cmds, separate them with ";". For ex.: say <player> has been banned!;ban <player>;
+    COMMAND_ON_LEAVE: ""
     BLOCK_PLAYER_COMMANDS: TRUE
-    BLOCKED_COMMANDS_WHITELIST:
-    #- asd
+    #Cmds that are not blocked when a player is frozen and the above is true. Separate them with ";". For ex.: "help;say;list;etc."
+    BLOCKED_COMMANDS_WHITELIST: ""

@@ -1,5 +1,10 @@
 package _1ms.FF;
 
+import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendCommandsEvent;
+import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendSuggestionsEvent;
+import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
+import com.mojang.brigadier.context.StringRange;
+import com.mojang.brigadier.suggestion.Suggestions;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.Bukkit;
@@ -13,10 +18,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 
 import static _1ms.FF.CfgMgr.*;
 
@@ -44,18 +48,6 @@ public class EventMgr implements Listener {
         if (BLOCK_PLAYER_MOVE && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
-
-//    @EventHandler
-//    public void onBlockPlace(BlockPlaceEvent e) {
-//        if (BLOCK_PLAYER_PLACE && isFrozen(e.getPlayer()))
-//            e.setCancelled(true);
-//    }
-
-//    @EventHandler
-//    public void onBlockBreak(BlockBreakEvent e) {
-//        if (BLOCK_PLAYER_BREAK && isFrozen(e.getPlayer()))
-//            e.setCancelled(true);
-//    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
@@ -104,6 +96,15 @@ public class EventMgr implements Listener {
             p.sendMessage(NO_COMMAND);
         }
     }
+//When the player is frozen and cant enter cmds, also take away their tab completitions, experimental api->async.
+    @EventHandler
+    @SuppressWarnings("UnstableApiUsage")
+    public void onAsyncTab(AsyncPlayerSendCommandsEvent<?> e) {
+        if ((e.isAsynchronous() || !e.hasFiredAsync()) && BLOCK_PLAYER_COMMANDS && freezed.contains(e.getPlayer().getUniqueId())) {
+            System.out.println("RM "+e.getCommandNode().getChildren());
+            e.getCommandNode().getChildren().removeIf(c->!CMD_WHITELIST.contains(c.getName().toLowerCase()));
+        }
+    }
 
     @EventHandler
     public void PlayerInvC(InventoryClickEvent e) {
@@ -134,13 +135,17 @@ public class EventMgr implements Listener {
     }
 
     @EventHandler
-    public void BanOnLeave(PlayerQuitEvent e) {
+    public void HandleLeave(PlayerQuitEvent e) {
         var p = e.getPlayer();
         if (freezed.remove(p.getUniqueId())) {
             Freezer.coreUnfreeze(p,null);
-            if (CMD_ON_LEAVE != null)
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                        Objects.requireNonNull(CMD_ON_LEAVE).replace("<player>", p.getName()));
+            if (!CMD_ON_LEAVE.isEmpty()) {
+                var cmds = CMD_ON_LEAVE.split(";");
+                for (String cmd : cmds) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                            Objects.requireNonNull(cmd).replace("<player>", p.getName()));
+                }
+            }
         }
     }
 

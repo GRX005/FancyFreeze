@@ -55,6 +55,7 @@ public class Freezer {
     private static void coreFreeze(Player cmdtarget, CommandSender sender) {
         freezed.add(cmdtarget.getUniqueId());
         cmdtarget.setAllowFlight(true);
+        cmdtarget.updateCommands();
         if(SPAWN_EFFECT)
             cmdtarget.setFreezeTicks(Integer.MAX_VALUE);
         if(GLOWING)
@@ -77,8 +78,8 @@ public class Freezer {
                 sender.sendMessage(PLAYER_NOT_FROZEN);
                 return;
             }
-            coreUnfreeze(target, sender);
             freezed.remove(target.getUniqueId());
+            coreUnfreeze(target, sender);
             sender.sendMessage(PLAYER_UNFROZEN);
         } else {
             if (!shDown && freezed.isEmpty()) {
@@ -88,9 +89,9 @@ public class Freezer {
             var iterator = freezed.iterator();
             while (iterator.hasNext()) {
                 var pUUID = iterator.next();
+                iterator.remove();
                 var player = Objects.requireNonNull(Bukkit.getPlayer(pUUID));
                 coreUnfreeze(player, sender);
-                iterator.remove();
             }
             if (!shDown)
                 sender.sendMessage(ALL_PLAYERS_UNFROZEN);
@@ -102,6 +103,7 @@ public class Freezer {
 
     public static void coreUnfreeze(Player cmdtarget, CommandSender sender) {
         cmdtarget.setAllowFlight(false);
+        cmdtarget.updateCommands();
         if(SPAWN_EFFECT)
             cmdtarget.setFreezeTicks(0);
         if(GLOWING)
