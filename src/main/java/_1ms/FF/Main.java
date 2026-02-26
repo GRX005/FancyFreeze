@@ -1,12 +1,21 @@
 package _1ms.FF;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Objects;
 
 import static _1ms.FF.EventMgr.freezed;
@@ -34,6 +43,10 @@ public final class Main extends JavaPlugin {
         });
         if (CfgMgr.SPAWN_PARTICLE)
             handleParticle();
+
+        new Metrics(this, 29773);
+        Thread.ofVirtual().name("UpdateChecker").start(this::checkForUpdates);
+
         getLogger().info("FancyFreeze has been loaded.");
     }
 
@@ -71,6 +84,30 @@ public final class Main extends JavaPlugin {
                 pBuilder.location(target.getWorld(),x,y,z).spawn();
             });
         }, 0, 1);
+    }
+
+    private void checkForUpdates(){
+        final String currV = getPluginMeta().getVersion();
+        final String latestV = getLatest(currV);
+
+        if (!currV.equals(latestV))
+            getLogger().warning("New version available: "+ latestV+". You are still on "+ currV+".");
+    }
+
+    private String getLatest(String v){
+        try (HttpClient client = HttpClient.newHttpClient()) {
+            HttpResponse<String> resp = client.send(
+                    HttpRequest.newBuilder()
+                            .uri(URI.create("https://api.modrinth.com/v2/project/fancyfreeze/version"))
+                            .header("User-Agent","FancyFreeze "+v+" (https://github.com/GRX005/FancyFreeze)")
+                            .GET()
+                            .build(),
+                    HttpResponse.BodyHandlers.ofString());
+            JsonArray respArr = new Gson().fromJson(resp.body(), JsonArray.class);
+            return respArr.get(0).getAsJsonObject().get("version_number").getAsString();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Error while searching for updates.",e);
+        }
     }
 
 }

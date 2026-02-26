@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CfgMgr {//TODO CONVERT TO automatic assignments
+public class CfgMgr {//TODO CONVERT TO automatic assignments?
     public static String prefix;
     public static Component RELOAD;
     public static Component NO_SELF_FREEZE;
@@ -58,7 +58,7 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments
     public static void load() {
         cfg = Main.pl.getConfig();
 //Messages, dynamic ones need to be read as String
-        prefix = cfg.getString("SkyFreeze_Config.Messages.Prefix");
+        prefix = cfg.getString("FancyFreeze_Config.Messages.Prefix");
         NO_SELF_FREEZE = getMessage("NO_SELF_FREEZE");
         PLAYER_HAS_PERM = getMessage("PLAYER_HAS_PERM");
         RELOAD = getMessage("RELOAD");
@@ -104,7 +104,7 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments
         BLOCK_TELEPORT = getFeature("BLOCK_TELEPORT");
         BLOCK_CHAT = getFeature("BLOCK_CHAT");
 //Utils
-        final String fp = "SkyFreeze_Config.Features.";
+        final String fp = "FancyFreeze_Config.Features.";
         CMD_WHITELIST = cfg.getStringList(fp + "BLOCKED_COMMANDS_WHITELIST");
         CMD_ON_LEAVE = cfg.getString(fp + "COMMAND_ON_LEAVE");
     }
@@ -117,10 +117,10 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments
     }
     //Separate as we store the replaceable ones as Strings, so this is used to read that directly, and we store the static ones as Component from the start
     private static String getStrP(String path) {
-        return (path.contains("ACTION_BAR")? "": prefix)+cfg.getString("SkyFreeze_Config.Messages." + path);
+        return (path.contains("ACTION_BAR")? "": prefix)+cfg.getString("FancyFreeze_Config.Messages." + path);
     }
     
     private static boolean getFeature(String path) {
-        return cfg.getBoolean("SkyFreeze_Config.Features."+path);
+        return cfg.getBoolean("FancyFreeze_Config.Features."+path);
     }
 }
