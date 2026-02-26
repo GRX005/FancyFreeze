@@ -1,10 +1,6 @@
 package _1ms.FF;
 
 import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendCommandsEvent;
-import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendSuggestionsEvent;
-import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
-import com.mojang.brigadier.context.StringRange;
-import com.mojang.brigadier.suggestion.Suggestions;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.Bukkit;
@@ -18,9 +14,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 
 import static _1ms.FF.CfgMgr.*;
 
