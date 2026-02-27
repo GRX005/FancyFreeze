@@ -15,7 +15,7 @@ FancyFreeze_Config:
     ALL_PLAYERS_UNFROZEN: "<gradient:#00FF64:#8AFF00>☀ All players have been unfrozen."
     STAFF_NOTICE: "<gradient:#00FF64:#8AFF00>⚑ <gradient:#007725:#00CF5A><target> </gradient><gradient:#00FF64:#8AFF00>has been frozen by <gradient:#007725:#00CF5A><sender><gradient:#00FF64:#8AFF00>."
     STAFF_NOTICE_ALL: "<gradient:#00FF64:#8AFF00>⚑ All players have been frozen by <gradient:#007725:#00CF5A><sender><gradient:#00FF64:#8AFF00>."
-    STAFF_NOTICE_UN: "<gradient:#00FF64:#8AFF00>⚑ <gradient:#007725:#00CF5A><target> <gradient:#00FF64:#8AFF00>has been unfrozen by <gradient:#007725:#00CF5A><sender><gradient:#00FF64:#8AFF00>."
+    STAFF_NOTICE_UN: "<gradient:#00FF64:#8AFF00>⚑ <gradient:#007725:#00CF5A><target> </gradient><gradient:#00FF64:#8AFF00>has been unfrozen by <gradient:#007725:#00CF5A><sender><gradient:#00FF64:#8AFF00>."
     STAFF_NOTICE_ALL_UN: "<gradient:#00FF64:#8AFF00>⚑ All players have been unfrozen by <gradient:#007725:#00CF5A><sender><gradient:#00FF64:#8AFF00>."
     PLAYER_NOT_FROZEN: "<gradient:#F51010:#FF0091>⚠ That player is not currently frozen."
     NO_PLAYER_FROZEN: "<gradient:#F51010:#FF0091>⚠ No players are currently frozen."
@@ -40,10 +40,11 @@ FancyFreeze_Config:
     BLOCK_ITEM_SWAP: TRUE
     BLOCK_PLAYER_DAMAGE: TRUE
     BLOCK_GUI_OPEN: TRUE
+    BLOCK_BOOK_INTERACTIONS: TRUE
     BLOCK_TELEPORT: FALSE
     BLOCK_CHAT: FALSE
     #Cmd to be run by the srv if a player leaves while frozen. <player> will refer to the player who left. To run multiple cmds, separate them with ";". For ex.: say <player> has been banned!;ban <player>;
     COMMAND_ON_LEAVE: ""
     BLOCK_PLAYER_COMMANDS: TRUE
-    #Cmds that are not blocked when a player is frozen and the above is true. Separate them with ";". For ex.: "help;say;list;etc."
+    #Cmds that are not blocked when a player is frozen and the above is true. Use lowercase and separate them with ";". For ex.: "help;say;list;etc."
     BLOCKED_COMMANDS_WHITELIST: ""

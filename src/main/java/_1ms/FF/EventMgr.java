@@ -22,6 +22,7 @@ package _1ms.FF;
 
 import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendCommandsEvent;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import io.papermc.paper.event.player.PlayerLecternPageChangeEvent;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
@@ -177,6 +178,24 @@ public class EventMgr implements Listener {
             e.setCancelled(true);
             p.sendMessage(NO_CHAT);
         }
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerEditBookEvent e) {
+        if (BLOCK_BOOK_INTERACTIONS && isFrozen(e.getPlayer()))
+            e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTakeLecternBookEvent e) {
+        if (BLOCK_BOOK_INTERACTIONS && isFrozen(e.getPlayer()))
+            e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerLecternPageChangeEvent e) {
+        if (BLOCK_BOOK_INTERACTIONS && isFrozen(e.getPlayer()))
+            e.setCancelled(true);
     }
 
 }

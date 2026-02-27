@@ -71,6 +71,7 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
     public static boolean BLOCK_GUI_OPEN;
     public static boolean BLOCK_TELEPORT;
     public static boolean BLOCK_CHAT;
+    public static boolean BLOCK_BOOK_INTERACTIONS;
 
     public static List<String> CMD_WHITELIST = new ArrayList<>();
     public static String CMD_ON_LEAVE;
@@ -121,6 +122,7 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
         BLOCK_GUI_OPEN = getFeature("BLOCK_GUI_OPEN");
         BLOCK_TELEPORT = getFeature("BLOCK_TELEPORT");
         BLOCK_CHAT = getFeature("BLOCK_CHAT");
+        BLOCK_BOOK_INTERACTIONS = getFeature("BLOCK_BOOK_INTERACTIONS");
 //Utils
         final String fp = "FancyFreeze_Config.Features.";
         CMD_WHITELIST = Arrays.stream(Objects.requireNonNull(cfg.getString(fp + "BLOCKED_COMMANDS_WHITELIST")).split(";")).toList();

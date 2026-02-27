@@ -76,8 +76,11 @@ public class Freezer {
         freezed.add(cmdtarget.getUniqueId());
         cmdtarget.setAllowFlight(true);
         cmdtarget.updateCommands();
-        if(SPAWN_EFFECT)
-            cmdtarget.setFreezeTicks(Integer.MAX_VALUE);
+        cmdtarget.leaveVehicle();
+        if(SPAWN_EFFECT) {
+            cmdtarget.setFreezeTicks(cmdtarget.getMaxFreezeTicks());
+            cmdtarget.lockFreezeTicks(true);
+        }
         if(GLOWING)
             cmdtarget.setGlowing(true);
 //        if(SPAWN_PARTICLE)
@@ -92,8 +95,7 @@ public class Freezer {
     public static void unFreeze(CommandSender sender, Player target) {
         var all = target == null;
         var shDown = sender == null;
-        if(!all) {
-            assert sender!=null;
+        if(!all && !shDown) {
             if (!freezed.contains(target.getUniqueId())) {
                 sender.sendMessage(PLAYER_NOT_FROZEN);
                 return;
@@ -124,8 +126,10 @@ public class Freezer {
     public static void coreUnfreeze(Player cmdtarget, CommandSender sender) {
         cmdtarget.setAllowFlight(false);
         cmdtarget.updateCommands();
-        if(SPAWN_EFFECT)
+        if(SPAWN_EFFECT) {
             cmdtarget.setFreezeTicks(0);
+            cmdtarget.lockFreezeTicks(false);
+        }
         if(GLOWING)
             cmdtarget.setGlowing(false);
         if (sender!=null)
