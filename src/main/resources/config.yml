@@ -24,6 +24,8 @@ FancyFreeze_Config:
     NO_COMMAND: "<gradient:#F51010:#FF0091>⚠ Commands are disabled while you are frozen."
     NO_CHAT: "<gradient:#F51010:#FF0091>⚠ Chat is disabled while you are frozen."
   Features:
+    BSTATS: TRUE
+    CHECK_FOR_UPDATES: TRUE
     SPAWN_PARTICLES: TRUE
     FREEZE_EFFECT: TRUE
     GLOWING_EFFECT: TRUE

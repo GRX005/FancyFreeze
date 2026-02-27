@@ -39,8 +39,6 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
     public static boolean ACTION_BAR_MSG;
 
     public static boolean BLOCK_PLAYER_MOVE;
-    public static boolean BLOCK_PLAYER_PLACE;
-    public static boolean BLOCK_PLAYER_BREAK;
     public static boolean BLOCK_PLAYER_INTERACT;
     public static boolean BLOCK_PLAYER_HIT;
     public static boolean BLOCK_ITEM_DROP;
@@ -91,8 +89,6 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
         ACTION_BAR_MSG = getFeature("ACTION_BAR_MSG");
 
         BLOCK_PLAYER_MOVE = getFeature("BLOCK_PLAYER_MOVE");
-        BLOCK_PLAYER_PLACE = getFeature("BLOCK_PLAYER_PLACE");
-        BLOCK_PLAYER_BREAK = getFeature("BLOCK_PLAYER_BREAK");
         BLOCK_PLAYER_INTERACT = getFeature("BLOCK_PLAYER_INTERACT");
         BLOCK_PLAYER_HIT = getFeature("BLOCK_PLAYER_HIT");
         BLOCK_ITEM_DROP = getFeature("BLOCK_ITEM_DROP");

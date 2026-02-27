@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
@@ -17,6 +18,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 
+import static _1ms.FF.CfgMgr.*;
 import static _1ms.FF.EventMgr.freezed;
 
 public final class Main extends JavaPlugin {
@@ -43,8 +45,33 @@ public final class Main extends JavaPlugin {
         if (CfgMgr.SPAWN_PARTICLE)
             handleParticle();
 
-        new Metrics(this, 29773);
-        Thread.ofVirtual().name("UpdateChecker").start(this::checkForUpdates);
+        if (getConfig().getBoolean("FancyFreeze_Config.Features.BSTATS")) {
+            var m = new Metrics(this, 29773);
+            m.addCustomChart(new SimplePie("cfg_features", ()-> String.join(";",
+                    "SPAWN_PARTICLE="     + SPAWN_PARTICLE,
+                    "SPAWN_EFFECT="       + SPAWN_EFFECT,
+                    "GLOWING="            + GLOWING,
+                    "ACTION_BAR_MSG="     + ACTION_BAR_MSG,
+                    "BLOCK_PLAYER_MOVE="  + BLOCK_PLAYER_MOVE,
+                    "BLOCK_PLAYER_INTERACT=" + BLOCK_PLAYER_INTERACT,
+                    "BLOCK_PLAYER_HIT="   + BLOCK_PLAYER_HIT,
+                    "BLOCK_ITEM_DROP="    + BLOCK_ITEM_DROP,
+                    "BLOCK_ITEM_PICKUP="  + BLOCK_ITEM_PICKUP,
+                    "BLOCK_PLAYER_COMMANDS=" + BLOCK_PLAYER_COMMANDS,
+                    "BLOCK_INTERACTING_WITH_ENTITY=" + BLOCK_INTERACTING_WITH_ENTITY,
+                    "BLOCK_INVENTORY_CLICK=" + BLOCK_INVENTORY_CLICK,
+                    "BLOCK_PLAYER_DAMAGE=" + BLOCK_PLAYER_DAMAGE,
+                    "BLOCK_ITEM_SWAP="    + BLOCK_ITEM_SWAP,
+                    "BLOCK_GUI_OPEN="     + BLOCK_GUI_OPEN,
+                    "BLOCK_TELEPORT="     + BLOCK_TELEPORT,
+                    "BLOCK_CHAT="         + BLOCK_CHAT,
+                    "CMD_ON_LEAVE_USED="+ !CMD_ON_LEAVE.isEmpty(),
+                    "COMMANDS_WHITELIST_USED="+ !CMD_WHITELIST.isEmpty()
+            )));
+        }
+
+        if (getConfig().getBoolean("FancyFreeze_Config.Features.CHECK_FOR_UPDATES"))
+            Thread.ofVirtual().name("UpdateChecker").start(this::checkForUpdates);
 
         getLogger().info("FancyFreeze has been loaded.");
     }
@@ -90,7 +117,7 @@ public final class Main extends JavaPlugin {
         final String latestV = getLatest(currV);
 
         if (!currV.equals(latestV))
-            getLogger().warning("New version available: "+ latestV+". You are still on "+ currV+".");
+            getLogger().warning("A new version is available: "+ latestV+". You are still on "+ currV+".");
     }
 
     private String getLatest(String v){

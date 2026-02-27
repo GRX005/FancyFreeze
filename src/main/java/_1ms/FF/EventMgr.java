@@ -97,10 +97,8 @@ public class EventMgr implements Listener {
     @EventHandler
     @SuppressWarnings("UnstableApiUsage")
     public void onAsyncTab(AsyncPlayerSendCommandsEvent<?> e) {
-        if ((e.isAsynchronous() || !e.hasFiredAsync()) && BLOCK_PLAYER_COMMANDS && freezed.contains(e.getPlayer().getUniqueId())) {
-            System.out.println("RM "+e.getCommandNode().getChildren());
+        if ((e.isAsynchronous() || !e.hasFiredAsync()) && BLOCK_PLAYER_COMMANDS && freezed.contains(e.getPlayer().getUniqueId()))
             e.getCommandNode().getChildren().removeIf(c->!CMD_WHITELIST.contains(c.getName().toLowerCase()));
-        }
     }
 
     @EventHandler
