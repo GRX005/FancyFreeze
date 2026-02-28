@@ -136,7 +136,7 @@ public final class Main extends JavaPlugin {
         final String currV = getPluginMeta().getVersion();
         final String latestV = getLatest(currV);
 
-        if (!currV.equals(latestV))
+        if (latestV!=null&&!currV.equals(latestV))
             getLogger().warning("A new version is available: "+ latestV+". You are still on "+ currV+".");
     }
 
@@ -151,8 +151,9 @@ public final class Main extends JavaPlugin {
                     HttpResponse.BodyHandlers.ofString());
             JsonArray respArr = new Gson().fromJson(resp.body(), JsonArray.class);
             return respArr.get(0).getAsJsonObject().get("version_number").getAsString();
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Error while searching for updates.",e);
+        } catch (Exception e) {
+            getLogger().warning("Error occurred while checking for updates: "+e);
+            return null;
         }
     }
 
