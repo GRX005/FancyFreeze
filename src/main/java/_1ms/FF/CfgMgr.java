@@ -65,13 +65,13 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
     public static boolean BLOCK_ITEM_PICKUP;
     public static boolean BLOCK_PLAYER_COMMANDS;
     public static boolean BLOCK_INTERACTING_WITH_ENTITY;
-    public static boolean BLOCK_INVENTORY_CLICK;
+    public static boolean BLOCK_INVENTORY_CHANGES;
     public static boolean BLOCK_PLAYER_DAMAGE;
     public static boolean BLOCK_ITEM_SWAP;
     public static boolean BLOCK_GUI_OPEN;
     public static boolean BLOCK_TELEPORT;
     public static boolean BLOCK_CHAT;
-    public static boolean BLOCK_BOOK_INTERACTIONS;
+    public static boolean KICK_FROM_VEHICLE;
 
     public static List<String> CMD_WHITELIST = new ArrayList<>();
     public static String CMD_ON_LEAVE;
@@ -116,13 +116,13 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
         BLOCK_ITEM_PICKUP = getFeature("BLOCK_ITEM_PICKUP");
         BLOCK_PLAYER_COMMANDS = getFeature("BLOCK_PLAYER_COMMANDS");
         BLOCK_INTERACTING_WITH_ENTITY = getFeature("BLOCK_INTERACTING_WITH_ENTITY");
-        BLOCK_INVENTORY_CLICK = getFeature("BLOCK_INVENTORY_CLICK");
+        BLOCK_INVENTORY_CHANGES = getFeature("BLOCK_INVENTORY_CHANGES");
         BLOCK_PLAYER_DAMAGE = getFeature("BLOCK_PLAYER_DAMAGE");
         BLOCK_ITEM_SWAP = getFeature("BLOCK_ITEM_SWAP");
         BLOCK_GUI_OPEN = getFeature("BLOCK_GUI_OPEN");
         BLOCK_TELEPORT = getFeature("BLOCK_TELEPORT");
         BLOCK_CHAT = getFeature("BLOCK_CHAT");
-        BLOCK_BOOK_INTERACTIONS = getFeature("BLOCK_BOOK_INTERACTIONS");
+        KICK_FROM_VEHICLE = getFeature("KICK_FROM_VEHICLE");
 //Utils
         final String fp = "FancyFreeze_Config.Features.";
         CMD_WHITELIST = Arrays.stream(Objects.requireNonNull(cfg.getString(fp + "BLOCKED_COMMANDS_WHITELIST")).split(";")).toList();

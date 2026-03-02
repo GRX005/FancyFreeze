@@ -21,8 +21,8 @@
 package _1ms.FF;
 
 import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendCommandsEvent;
+import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import io.papermc.paper.event.player.PlayerLecternPageChangeEvent;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
@@ -124,7 +124,7 @@ public class EventMgr implements Listener {
 
     @EventHandler
     public void PlayerInvC(InventoryClickEvent e) {
-        if (BLOCK_INVENTORY_CLICK && isFrozen(e.getWhoClicked()))
+        if (BLOCK_INVENTORY_CHANGES && isFrozen(e.getWhoClicked()))
             e.setCancelled(true);
     }
 
@@ -181,21 +181,22 @@ public class EventMgr implements Listener {
     }
 
     @EventHandler
-    public void onTeleport(PlayerEditBookEvent e) {
-        if (BLOCK_BOOK_INTERACTIONS && isFrozen(e.getPlayer()))
+    public void onBookEdit(PlayerEditBookEvent e) {
+        if (BLOCK_INVENTORY_CHANGES && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
     @EventHandler
-    public void onTeleport(PlayerTakeLecternBookEvent e) {
-        if (BLOCK_BOOK_INTERACTIONS && isFrozen(e.getPlayer()))
+    public void xpPickup(PlayerPickupExperienceEvent e) {
+        if (BLOCK_ITEM_PICKUP && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
     @EventHandler
-    public void onTeleport(PlayerLecternPageChangeEvent e) {
-        if (BLOCK_BOOK_INTERACTIONS && isFrozen(e.getPlayer()))
+    public void SlotChangeBlock(PlayerItemHeldEvent e) {
+        if (BLOCK_INVENTORY_CHANGES && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
+
 
 }

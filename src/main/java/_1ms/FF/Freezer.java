@@ -27,6 +27,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -74,9 +75,14 @@ public class Freezer {
 
     private static void coreFreeze(Player cmdtarget, CommandSender sender) {
         freezed.add(cmdtarget.getUniqueId());
-        cmdtarget.setAllowFlight(true);
-        cmdtarget.updateCommands();
-        cmdtarget.leaveVehicle();
+        if (cmdtarget.getAllowFlight())
+            cmdtarget.getPersistentDataContainer().set(Main.flyPerms, PersistentDataType.BYTE,(byte)1);
+        else
+            cmdtarget.setAllowFlight(true);
+        if(BLOCK_PLAYER_COMMANDS)
+            cmdtarget.updateCommands();
+        if (KICK_FROM_VEHICLE)
+            cmdtarget.leaveVehicle();
         if(SPAWN_EFFECT) {
             cmdtarget.setFreezeTicks(cmdtarget.getMaxFreezeTicks());
             cmdtarget.lockFreezeTicks(true);
@@ -124,8 +130,13 @@ public class Freezer {
     }
 
     public static void coreUnfreeze(Player cmdtarget, CommandSender sender) {
-        cmdtarget.setAllowFlight(false);
-        cmdtarget.updateCommands();
+        var pdc = cmdtarget.getPersistentDataContainer();
+        if (pdc.has(Main.flyPerms))
+            pdc.remove(Main.flyPerms);
+        else
+            cmdtarget.setAllowFlight(false);
+        if (BLOCK_PLAYER_COMMANDS)
+            cmdtarget.updateCommands();
         if(SPAWN_EFFECT) {
             cmdtarget.setFreezeTicks(0);
             cmdtarget.lockFreezeTicks(false);

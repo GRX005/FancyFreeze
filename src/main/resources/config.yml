@@ -36,11 +36,11 @@ FancyFreeze_Config:
     BLOCK_ITEM_DROP: TRUE
     BLOCK_ITEM_PICKUP: TRUE
     BLOCK_INTERACTING_WITH_ENTITY: TRUE
-    BLOCK_INVENTORY_CLICK: TRUE
+    BLOCK_INVENTORY_CHANGES: TRUE
     BLOCK_ITEM_SWAP: TRUE
     BLOCK_PLAYER_DAMAGE: TRUE
     BLOCK_GUI_OPEN: TRUE
-    BLOCK_BOOK_INTERACTIONS: TRUE
+    KICK_FROM_VEHICLE: TRUE
     BLOCK_TELEPORT: FALSE
     BLOCK_CHAT: FALSE
     #Cmd to be run by the srv if a player leaves while frozen. <player> will refer to the player who left. To run multiple cmds, separate them with ";". For ex.: say <player> has been banned!;ban <player>;

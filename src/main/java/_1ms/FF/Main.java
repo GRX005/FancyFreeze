@@ -28,10 +28,10 @@ import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -45,10 +45,12 @@ public final class Main extends JavaPlugin {
 
     public static Main pl;
     public static MiniMessage mm;
+    public static NamespacedKey flyPerms;
 
     @Override
     public void onEnable() {
         pl=this;
+        flyPerms = new NamespacedKey(this, "flyPerms");
         mm=MiniMessage.miniMessage();
         // Plugin startup logic
         saveDefaultConfig();
@@ -79,7 +81,7 @@ public final class Main extends JavaPlugin {
                     "BLOCK_ITEM_PICKUP="  + BLOCK_ITEM_PICKUP,
                     "BLOCK_PLAYER_COMMANDS=" + BLOCK_PLAYER_COMMANDS,
                     "BLOCK_INTERACTING_WITH_ENTITY=" + BLOCK_INTERACTING_WITH_ENTITY,
-                    "BLOCK_INVENTORY_CLICK=" + BLOCK_INVENTORY_CLICK,
+                    "BLOCK_INVENTORY_CLICK=" + BLOCK_INVENTORY_CHANGES,
                     "BLOCK_PLAYER_DAMAGE=" + BLOCK_PLAYER_DAMAGE,
                     "BLOCK_ITEM_SWAP="    + BLOCK_ITEM_SWAP,
                     "BLOCK_GUI_OPEN="     + BLOCK_GUI_OPEN,
