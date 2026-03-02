@@ -56,7 +56,7 @@ public class Freezer {
         } else {
             //op check
             var fP = new ArrayList<Player>(Bukkit.getOnlinePlayers().stream()
-                    .filter(p -> sender!=p && !p.hasPermission(Perm.Bypass.s) && !freezed.contains(p.getUniqueId()))
+                    .filter(p -> !sender.equals(p) && !p.hasPermission(Perm.Bypass.s) && !freezed.contains(p.getUniqueId()))
                     .toList());
             if (fP.isEmpty()) {
                 sender.sendMessage(NO_FREEZABLE);
