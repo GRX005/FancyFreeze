@@ -36,7 +36,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Objects;
 
 import static _1ms.FF.CfgMgr.*;
 import static _1ms.FF.EventMgr.freezed;
@@ -122,7 +121,8 @@ public final class Main extends JavaPlugin {
             final int i = particleTick[0];
             particleTick[0] = (i + 1) % points;
             freezed.forEach(p->{
-                var target = Objects.requireNonNull(Bukkit.getPlayer(p));
+                var target = Bukkit.getPlayer(p);
+                if (target == null) return;
 
                 var x = target.getX() + xOff[i];
                 var y = target.getY() + 2.0;

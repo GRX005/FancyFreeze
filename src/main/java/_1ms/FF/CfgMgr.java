@@ -27,7 +27,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class CfgMgr {//TODO CONVERT TO automatic assignments?
     public static String prefix;
@@ -125,7 +124,9 @@ public class CfgMgr {//TODO CONVERT TO automatic assignments?
         KICK_FROM_VEHICLE = getFeature("KICK_FROM_VEHICLE");
 //Utils
         final String fp = "FancyFreeze_Config.Features.";
-        CMD_WHITELIST = Arrays.stream(Objects.requireNonNull(cfg.getString(fp + "BLOCKED_COMMANDS_WHITELIST")).split(";")).toList();
+        CMD_WHITELIST = Arrays.stream(cfg.getString(fp + "BLOCKED_COMMANDS_WHITELIST", "").split(";"))
+                .filter(s -> !s.isBlank())
+                .toList();
         CMD_ON_LEAVE = cfg.getString(fp + "COMMAND_ON_LEAVE");
     }
     

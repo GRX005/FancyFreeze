@@ -30,7 +30,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static _1ms.FF.CfgMgr.*;
 import static _1ms.FF.EventMgr.freezed;
@@ -118,7 +117,8 @@ public class Freezer {
             while (iterator.hasNext()) {
                 var pUUID = iterator.next();
                 iterator.remove();
-                var player = Objects.requireNonNull(Bukkit.getPlayer(pUUID));
+                var player = Bukkit.getPlayer(pUUID);
+                if (player == null) continue;
                 coreUnfreeze(player, sender);
             }
             if (!shDown)

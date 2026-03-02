@@ -28,6 +28,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -49,61 +50,61 @@ public class EventMgr implements Listener {
         return freezed.contains(p.getUniqueId());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerMoveEvent(PlayerMoveEvent e) {
         if (BLOCK_PLAYER_MOVE && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerSneakBlock(PlayerToggleSneakEvent e) {
         if (BLOCK_PLAYER_MOVE && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerSprintBlock(PlayerToggleSprintEvent e) {
         if (BLOCK_PLAYER_MOVE && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent e) {
         if (BLOCK_PLAYER_INTERACT && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityInteract(PlayerInteractEntityEvent e) {
         if (BLOCK_INTERACTING_WITH_ENTITY && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void blockAtEntityInteract(PlayerInteractAtEntityEvent e) {
         if (BLOCK_INTERACTING_WITH_ENTITY && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerHit(PrePlayerAttackEntityEvent e) {
         if (BLOCK_PLAYER_HIT && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onItemDrop(PlayerDropItemEvent e) {
         if (BLOCK_ITEM_DROP && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onItemPickup(PlayerAttemptPickupItemEvent e) {
         if (BLOCK_ITEM_PICKUP && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerCommand(PlayerCommandPreprocessEvent e) {
         var p = e.getPlayer();
         if (BLOCK_PLAYER_COMMANDS && isFrozen(p)) {
@@ -115,26 +116,26 @@ public class EventMgr implements Listener {
         }
     }
 //When the player is frozen and cant enter cmds, also take away their tab completitions, experimental api->async.
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     @SuppressWarnings("UnstableApiUsage")
     public void onAsyncTab(AsyncPlayerSendCommandsEvent<?> e) {
         if ((e.isAsynchronous() || !e.hasFiredAsync()) && BLOCK_PLAYER_COMMANDS && freezed.contains(e.getPlayer().getUniqueId()))
             e.getCommandNode().getChildren().removeIf(c->!CMD_WHITELIST.contains(c.getName().toLowerCase()));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerInvC(InventoryClickEvent e) {
         if (BLOCK_INVENTORY_CHANGES && isFrozen(e.getWhoClicked()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInventoryOpen(InventoryOpenEvent e) {
         if (BLOCK_GUI_OPEN && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerHit(EntityDamageEvent e) {
         if (BLOCK_PLAYER_DAMAGE && e.getEntity() instanceof Player p && isFrozen(p)) {
             e.setCancelled(true);
@@ -144,7 +145,7 @@ public class EventMgr implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onSwapHand(PlayerSwapHandItemsEvent e) {
         if (BLOCK_ITEM_SWAP && isFrozen(e.getPlayer()))
             e.setCancelled(true);
@@ -165,13 +166,13 @@ public class EventMgr implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent e) {
         if (BLOCK_TELEPORT && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(AsyncChatEvent e) {
         var p = e.getPlayer();
         if (BLOCK_CHAT && isFrozen(p)) {
@@ -180,19 +181,19 @@ public class EventMgr implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBookEdit(PlayerEditBookEvent e) {
         if (BLOCK_INVENTORY_CHANGES && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void xpPickup(PlayerPickupExperienceEvent e) {
         if (BLOCK_ITEM_PICKUP && isFrozen(e.getPlayer()))
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void SlotChangeBlock(PlayerItemHeldEvent e) {
         if (BLOCK_INVENTORY_CHANGES && isFrozen(e.getPlayer()))
             e.setCancelled(true);
