@@ -86,6 +86,7 @@ public final class Main extends JavaPlugin {
                     "BLOCK_GUI_OPEN="     + BLOCK_GUI_OPEN,
                     "BLOCK_TELEPORT="     + BLOCK_TELEPORT,
                     "BLOCK_CHAT="         + BLOCK_CHAT,
+                    "KICK_FROM_VEHICLE=" + KICK_FROM_VEHICLE,
                     "CMD_ON_LEAVE_USED="+ !CMD_ON_LEAVE.isEmpty(),
                     "COMMANDS_WHITELIST_USED="+ !CMD_WHITELIST.isEmpty()
             )));
